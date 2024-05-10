@@ -1,0 +1,105 @@
+# run with `ansible-playbook playbook.yaml -K -c local`
+
+- name: playbook
+  hosts: localhost
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  tasks:
+    - name: Install APT Packages
+      become: true
+      apt:
+        name:
+          - curl
+          - eza
+          - fd-find
+          - fish
+          - flatpak
+          - fzf
+          - gh
+          - git
+          - glab
+          - gnome-shell-pomodoro
+          - gnome-tweaks
+          - kitty
+          - neovim
+          - podman-toolbox
+          - python3-psutil # for playbook dconf
+          - ripgrep
+          - sqlite3
+          - trash-cli
+          - wl-clipboard
+          - zsh
+          
+        state: latest
+        update_cache: true
+
+    - name: Add the Flathub repository
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+    - name: Install Flatpaks
+      community.general.flatpak:
+        name:
+          - com.github.finefindus.eyedropper
+          - com.github.johnfactotum.Foliate
+          - com.mattjakeman.ExtensionManager
+          - com.vscodium.codium
+        state: present
+
+    - name: Install Snaps
+      become: yes
+      community.general.snap:
+        name:
+          - chromium
+        
+    # - name: Set Fish as Login Shell
+    #  become: yes
+    #  user:
+    #    name: "{{ the_user }}"
+    #    shell: /usr/bin/fish
+    
+    - name: Disable Mouse Acceleration
+      community.general.dconf:
+        key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
+        value: "'flat'"
+
+    # - name: Enable Fractional Scaling
+    #   community.general.dconf:
+    #     key: "/org/gnome/mutter/experimental-features"
+    #     value: "['scale-monitor-framebuffer']"
+
+    - name: Make Caps Lock an additional Esc, but Shift + Caps Lock is the regular Caps Lock
+      community.general.dconf:
+        key: "/org/gnome/desktop/input-sources/xkb-options"
+        value: "['caps:escape_shifted_capslock']"
+        
+    - name: Launch Home Folder
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/home"
+        value: "['<Super>e']"
+        
+    - name: Launch Terminal
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/terminal"
+        value: "['<Super>t']"
+        
+    # Use Adwaita Theme Instead Of Yaru
+    
+    - name: Use Adwaita Cursor Theme
+      dconf:
+        key: "/org/gnome/desktop/interface/cursor-theme"
+        value: "'Adwaita'"
+        
+    - name: Use Adwaita Icon Theme
+      dconf:
+        key: "/org/gnome/desktop/interface/icon-theme"
+        value: "'Adwaita'"
+        
+    - name: Use Adwaita GTK Theme
+      dconf:
+        key: "/org/gnome/desktop/interface/gtk-theme"
+        value: "'Adwaita'"
+
+
