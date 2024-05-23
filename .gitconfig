@@ -1,0 +1,10 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+# https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = ".gitconfig-github"
