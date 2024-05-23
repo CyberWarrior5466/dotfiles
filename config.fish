@@ -1,3 +1,5 @@
-alias code="flatpak run com.vscodium.codium"
-
-
+alias code="flatpak run com.vscodium.codium &> /dev/null"
+alias find="fdfind"
+alias grep="rg"
+alias ls="eza"
+alias tree="eza --tree"

@@ -24,6 +24,8 @@
           - neovim
           - podman-toolbox
           - python3-psutil # for playbook dconf
+          - python-is-python3
+          - python3-venv
           - ripgrep
           - sqlite3
           - trash-cli
@@ -46,6 +48,7 @@
           - com.github.johnfactotum.Foliate
           - com.mattjakeman.ExtensionManager
           - com.vscodium.codium
+          - org.gnome.Totem
         state: present
 
     - name: Install Snaps
@@ -65,10 +68,10 @@
         key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
         value: "'flat'"
 
-    # - name: Enable Fractional Scaling
-    #   community.general.dconf:
-    #     key: "/org/gnome/mutter/experimental-features"
-    #     value: "['scale-monitor-framebuffer']"
+    - name: Enable Fractional Scaling
+      community.general.dconf:
+        key: "/org/gnome/mutter/experimental-features"
+        value: "['scale-monitor-framebuffer']"
 
     - name: Make Caps Lock an additional Esc, but Shift + Caps Lock is the regular Caps Lock
       community.general.dconf:

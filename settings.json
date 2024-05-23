@@ -1,0 +1,21 @@
+{
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.profiles.linux": {
+    "fish": {
+      "path": "/app/bin/host-spawn",
+      "args": [
+        "fish"
+      ],
+      "icon": "terminal",
+      "overrideName": true
+    }
+  },
+  "window.titleBarStyle": "custom",
+  "workbench.activityBar.location": "top",
+  "window.customTitleBarVisibility": "auto",
+  "explorer.confirmDelete": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+}
