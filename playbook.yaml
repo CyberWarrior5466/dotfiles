@@ -21,7 +21,6 @@
           - gnome-shell-pomodoro
           - gnome-tweaks
           - kitty
-          - neovim
           - podman-toolbox
           - python3-psutil # for playbook dconf
           - python-is-python3
@@ -30,6 +29,7 @@
           - sqlite3
           - trash-cli
           - wl-clipboard
+          - xdg-terminal-exec
           - zsh
           
         state: latest
@@ -54,14 +54,19 @@
     - name: Install Snaps
       become: yes
       community.general.snap:
-        name:
-          - chromium
+        name: chromium
+          
+    - name: Install Classic Snaps
+      become: yes
+      community.general.snap:
+        name: nvim
+        classic: true
         
-    # - name: Set Fish as Login Shell
-    #  become: yes
-    #  user:
-    #    name: "{{ the_user }}"
-    #    shell: /usr/bin/fish
+    - name: Set Fish as Login Shell
+      become: true
+      user:
+        name: "{{ the_user }}"
+        shell: /usr/bin/fish
     
     - name: Disable Mouse Acceleration
       community.general.dconf:
@@ -104,5 +109,11 @@
       dconf:
         key: "/org/gnome/desktop/interface/gtk-theme"
         value: "'Adwaita'"
+
+    - name: Copy kitty.desktop into xdg-terminals
+      become: true
+      ansible.builtin.copy:
+        src: /usr/share/applications/kitty.desktop
+        dest: /usr/share/xdg-terminals
 
 

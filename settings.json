@@ -18,4 +18,5 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "security.workspace.trust.untrustedFiles": "open",
+  "explorer.confirmDragAndDrop": false,
 }
