@@ -19,4 +19,5 @@
   },
   "security.workspace.trust.untrustedFiles": "open",
   "explorer.confirmDragAndDrop": false,
+  "window.autoDetectColorScheme": true,
 }

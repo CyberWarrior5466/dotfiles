@@ -15,12 +15,14 @@
           - fish
           - flatpak
           - fzf
+          - gcc-14
           - gh
           - git
           - glab
           - gnome-shell-pomodoro
           - gnome-tweaks
           - kitty
+          - make
           - podman-toolbox
           - python3-psutil # for playbook dconf
           - python-is-python3
